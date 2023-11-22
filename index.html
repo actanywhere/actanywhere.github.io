@@ -17,7 +17,7 @@
         <p style="max-width:700px; margin:auto; text-align: justify; margin-bottom: 1em">
             Videos should play automatically and in a loop. If a video does not play automatically, we show the control bar for users to play. <br>
             Despite the various ways one may choose to generate the composited frames, we used Adobe Firefly to generate those for the results shown here.
-            Hover mouse over the composited frames to see their corresponding text prompts. 
+            Hover mouse over the composited frames to see their corresponding text prompts, which are either produced from ChatGPT 4 or manually written. 
         </p>
         <div id="content">
             <details open>
@@ -259,6 +259,47 @@
                                     <th>
                                         <video controls autoplay muted loop width="300">
                                             <source src="assets/composit_condition/woman_ride_horse/output.mp4">
+                                        </video>
+                                        <div>
+                                            Output 
+                                        </div>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="table-wrapper">
+                        <div id="table-scroll">
+                            <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                <tr valign="top">
+                                    <th>
+                                        <video controls autoplay muted loop width="300">
+                                            <source src="assets/composit_condition/man_dog/original.mp4">
+                                        </video>
+                                        <div>
+                                            Original video <br> (not used as model input)
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <video controls autoplay muted loop width="300">
+                                            <source src="assets/composit_condition/man_dog/seg.mp4">
+                                        </video>
+                                        <div>
+                                            Segmentation 
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="content_img">
+                                            <img src="assets/composit_condition/man_dog/cond.png" height="300">
+                                            <div>A dog plays beside an old man.</div>
+                                        </div>
+                                        <div>
+                                            Condition 
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <video controls autoplay muted loop width="300">
+                                            <source src="assets/composit_condition/man_dog/output.mp4">
                                         </video>
                                         <div>
                                             Output 
