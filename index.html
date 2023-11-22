@@ -18,319 +18,254 @@
             Videos should play automatically and in a loop. If a video does not play automatically, we show the control bar for users to play. <br>
             <b>Note</b> that the text shown for each video is only for description only, but is not an input to the model.
         </p>
-        <table style="max-width:700px;margin-left:auto;margin-right:auto;">
-            <tr>
-                <th>
-                    <p style="font-size:16px;">
-                        input video
-                    </p>
-                </th>
-                <th>
-                    <p style="font-size:16px;">
-                        Edit prompt:
-                    </p>
-                    
-                </th>
-                <th>
-                    <p style="font-size:16px;">
-                        Pix2Video result
-                    </p>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <video autoplay muted loop height="250">
-                        <source src="assets/origin/bear.mp4">
-                    </video>
-                </th>
-                <th>
-                    <p style="font-size:16px;">
-                        <span style="color: forestgreen;">a space bear walking through the stars</span>
-                    </p>
-                </th>
-                <th>
-                    <video autoplay muted loop height="250">
-                        <source src="assets/results_cfg/bear_edit1.mp4">
-                    </video>
-                </th>
-
-            </tr>
-        </table>
         <div id="content">
-            <details>
-                <summary>Problem Statement</summary>
-                <!-- <h3>Editing videos using a Pre-trained Image-diffusion Editing model </h3> -->
-                <table style="width: 100%">
-                    <tr>
-                        <th colspan=3>
-                            <p style="font-size:20px;">
-                                How to edit a video using a pre-trained image-diffusion editing model?
-                            </p>
-                            <div id="problem">
-                                <img src="assets/imgs/problem2.png" height="400">
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <p style="font-size:16px;">
-                                Per-frame method: <br> Prompt-to-Prompt [15]
-                            </p>
-                            <video controls muted loop height="250">
-                                <source src="assets/motivation/blackswan_edit1_prompt2prompt.mp4">
-                            </video>
-                        </th>
-                        <th>
-                            <p style="font-size:16px;">
-                                Per-frame method: <br> SDEdit [28]
-                            </p>
-                            <video controls muted loop height="250">
-                                <source src="assets/results_perframe/blackswan_edit1.mp4">
-                            </video>
-                        </th>
-                        <th>
-                            <p style="font-size:16px;color:orange">
-                                Our Pix2Video results <br>
-                                No training or finetuning
-                                <!-- generates <br> temporally coherent style edits -->
-                            </p>
-                            <video autoplay muted loop height="250">
-                                <source src="assets/results_cfg/blackswan_edit1.mp4">
-                            </video>
-                        </th>
-                    </tr>
-                </table>
-            </details>
-            <details> 
-                <summary>Method Overview</summary>
-                <p style="font-size:20px; text-align: justify;">
-                    Pix2Video first inverts each frame with DDIM-inversion and consider it as the initial noise for the denoising process. To edit each frame (lower row), we select a reference frame (upper row), inject its self-attention features to the UNet. At each diffusion step, we also update the latent of the current frame guided by the latent of the reference.
-                </p>
-                <img src="assets/imgs/pipeline.png">
-            </details>
             <details>
                 <summary>Video background generation with composited frame conditioning</summary>
                 <details>
                     <summary>Woman running across a lake</summary>
-                        <table style="width: 100%;margin-left:auto;margin-right:auto;">
-                            <tr valign="top">
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/woman_run_water/original.mp4">
-                                    </video>
-                                    <div>
-                                        Original video <br> (not used as model input)
-                                    </div>
-                                </th>
-                                <th>
-                                    <img src="assets/composit_condition/woman_run_water/cond.png" height="300">
-                                    <div>
-                                        Condition 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/woman_run_water/seg.mp4">
-                                    </video>
-                                    <div>
-                                        Segmentation 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/woman_run_water/output.mp4">
-                                    </video>
-                                    <div>
-                                        Output 
-                                    </div>
-                                </th>
-                            </tr>
-                          </table>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                    <tr valign="top">
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/woman_run_water/original.mp4">
+                                            </video>
+                                            <div>
+                                                Original video <br> (not used as model input)
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <img src="assets/composit_condition/woman_run_water/cond.png" height="300">
+                                            <div>
+                                                Condition 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/woman_run_water/seg.mp4">
+                                            </video>
+                                            <div>
+                                                Segmentation 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/woman_run_water/output.mp4">
+                                            </video>
+                                            <div>
+                                                Output 
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                 </details>
                 <details>
                     <summary>Mallard wandering around a fire pit</summary>
-                        <table style="width: 100%;margin-left:auto;margin-right:auto;">
-                            <tr valign="top">
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/mallard_firepit/original.mp4">
-                                    </video>
-                                    <div>
-                                        Original video <br> (not used as model input)
-                                    </div>
-                                </th>
-                                <th>
-                                    <img src="assets/composit_condition/mallard_firepit/cond.png" height="300">
-                                    <div>
-                                        Condition 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/mallard_firepit/seg.mp4">
-                                    </video>
-                                    <div>
-                                        Segmentation 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/mallard_firepit/output.mp4">
-                                    </video>
-                                    <div>
-                                        Output 
-                                    </div>
-                                </th>
-                            </tr>
-                          </table>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                    <tr valign="top">
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/mallard_firepit/original.mp4">
+                                            </video>
+                                            <div>
+                                                Original video <br> (not used as model input)
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <img src="assets/composit_condition/mallard_firepit/cond.png" height="300">
+                                            <div>
+                                                Condition 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/mallard_firepit/seg.mp4">
+                                            </video>
+                                            <div>
+                                                Segmentation 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/mallard_firepit/output.mp4">
+                                            </video>
+                                            <div>
+                                                Output 
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                 </details>
                 <details>
                     <summary>Man in a lab suit folding bed sheets</summary>
-                        <table style="width: 100%;margin-left:auto;margin-right:auto;">
-                            <tr valign="top">
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/man_hospital_fold_sheet/original.mp4">
-                                    </video>
-                                    <div>
-                                        Original video <br> (not used as model input)
-                                    </div>
-                                </th>
-                                <th>
-                                    <img src="assets/composit_condition/man_hospital_fold_sheet/cond.png" height="300">
-                                    <div>
-                                        Condition 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/man_hospital_fold_sheet/seg.mp4">
-                                    </video>
-                                    <div>
-                                        Segmentation 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/man_hospital_fold_sheet/output.mp4">
-                                    </video>
-                                    <div>
-                                        Output 
-                                    </div>
-                                </th>
-                            </tr>
-                          </table>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                    <tr valign="top">
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/man_hospital_fold_sheet/original.mp4">
+                                            </video>
+                                            <div>
+                                                Original video <br> (not used as model input)
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <img src="assets/composit_condition/man_hospital_fold_sheet/cond.png" height="300">
+                                            <div>
+                                                Condition 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/man_hospital_fold_sheet/seg.mp4">
+                                            </video>
+                                            <div>
+                                                Segmentation 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/man_hospital_fold_sheet/output.mp4">
+                                            </video>
+                                            <div>
+                                                Output 
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                 </details>
                 <details>
                     <summary>Man running on grassland beside a lake</summary>
-                        <table style="width: 100%;margin-left:auto;margin-right:auto;">
-                            <tr valign="top">
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/man_run_lake/original.mp4">
-                                    </video>
-                                    <div>
-                                        Original video <br> (not used as model input)
-                                    </div>
-                                </th>
-                                <th>
-                                    <img src="assets/composit_condition/man_run_lake/cond.png" height="300">
-                                    <div>
-                                        Condition 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/man_run_lake/seg.mp4">
-                                    </video>
-                                    <div>
-                                        Segmentation 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/man_run_lake/output.mp4">
-                                    </video>
-                                    <div>
-                                        Output 
-                                    </div>
-                                </th>
-                            </tr>
-                          </table>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                    <tr valign="top">
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/man_run_lake/original.mp4">
+                                            </video>
+                                            <div>
+                                                Original video <br> (not used as model input)
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <img src="assets/composit_condition/man_run_lake/cond.png" height="300">
+                                            <div>
+                                                Condition 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/man_run_lake/seg.mp4">
+                                            </video>
+                                            <div>
+                                                Segmentation 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/man_run_lake/output.mp4">
+                                            </video>
+                                            <div>
+                                                Output 
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                 </details>
                 <details>
                     <summary>Woman surfing in ocean</summary>
-                        <table style="width: 100%;margin-left:auto;margin-right:auto;">
-                            <tr valign="top">
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/woman_surf/original.mp4">
-                                    </video>
-                                    <div>
-                                        Original video <br> (not used as model input)
-                                    </div>
-                                </th>
-                                <th>
-                                    <img src="assets/composit_condition/woman_surf/cond.png" height="300">
-                                    <div>
-                                        Condition 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/woman_surf/seg.mp4">
-                                    </video>
-                                    <div>
-                                        Segmentation 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/woman_surf/output.mp4">
-                                    </video>
-                                    <div>
-                                        Output 
-                                    </div>
-                                </th>
-                            </tr>
-                          </table>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                    <tr valign="top">
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/woman_surf/original.mp4">
+                                            </video>
+                                            <div>
+                                                Original video <br> (not used as model input)
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <img src="assets/composit_condition/woman_surf/cond.png" height="300">
+                                            <div>
+                                                Condition 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/woman_surf/seg.mp4">
+                                            </video>
+                                            <div>
+                                                Segmentation 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/woman_surf/output.mp4">
+                                            </video>
+                                            <div>
+                                                Output 
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                 </details>
                 <details>
                     <summary>Woman riding a horse</summary>
-                        <table style="width: 100%;margin-left:auto;margin-right:auto;">
-                            <tr valign="top">
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/woman_ride_horse/original.mp4">
-                                    </video>
-                                    <div>
-                                        Original video <br> (not used as model input)
-                                    </div>
-                                </th>
-                                <th>
-                                    <img src="assets/composit_condition/woman_ride_horse/cond.png" height="300">
-                                    <div>
-                                        Condition 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/woman_ride_horse/seg.mp4">
-                                    </video>
-                                    <div>
-                                        Segmentation 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/composit_condition/woman_ride_horse/output.mp4">
-                                    </video>
-                                    <div>
-                                        Output 
-                                    </div>
-                                </th>
-                            </tr>
-                          </table>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                    <tr valign="top">
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/woman_ride_horse/original.mp4">
+                                            </video>
+                                            <div>
+                                                Original video <br> (not used as model input)
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <img src="assets/composit_condition/woman_ride_horse/cond.png" height="300">
+                                            <div>
+                                                Condition 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/woman_ride_horse/seg.mp4">
+                                            </video>
+                                            <div>
+                                                Segmentation 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/composit_condition/woman_ride_horse/output.mp4">
+                                            </video>
+                                            <div>
+                                                Output 
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                 </details>
             </details>
             <details>
@@ -948,78 +883,129 @@
                 <summary>Condition frame of a different subject</summary>
                 <details>
                     <summary>Boy rising up to sky holding ballons</summary>
-                        <table style="width: 100%;margin-left:auto;margin-right:auto;">
-                            <tr valign="top">
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/cond_diff_subject/man_ballon/original.mp4">
-                                    </video>
-                                    <div>
-                                        Original video <br> (not used as model input)
-                                    </div>
-                                </th>
-                                <th>
-                                    <img src="assets/cond_diff_subject/man_ballon/cond.png" height="300">
-                                    <div>
-                                        Condition 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/cond_diff_subject/man_ballon/seg.mp4">
-                                    </video>
-                                    <div>
-                                        Segmentation 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/cond_diff_subject/man_ballon/output.mp4">
-                                    </video>
-                                    <div>
-                                        Output 
-                                    </div>
-                                </th>
-                            </tr>
-                          </table>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                    <tr valign="top">
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/cond_diff_subject/man_ballon/original.mp4">
+                                            </video>
+                                            <div>
+                                                Original video <br> (not used as model input)
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <img src="assets/cond_diff_subject/man_ballon/cond.png" height="300">
+                                            <div>
+                                                Condition 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/cond_diff_subject/man_ballon/seg.mp4">
+                                            </video>
+                                            <div>
+                                                Segmentation 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/cond_diff_subject/man_ballon/output.mp4">
+                                            </video>
+                                            <div>
+                                                Output 
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                 </details>
                 <details>
                     <summary>Girl standing bicycle pedals and coasting down a road</summary>
-                        <table style="width: 100%;margin-left:auto;margin-right:auto;">
-                            <tr valign="top">
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/cond_diff_subject/girl_bicycle/original.mp4">
-                                    </video>
-                                    <div>
-                                        Original video <br> (not used as model input)
-                                    </div>
-                                </th>
-                                <th>
-                                    <img src="assets/cond_diff_subject/girl_bicycle/cond.png" height="300">
-                                    <div>
-                                        Condition 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/cond_diff_subject/girl_bicycle/seg.mp4">
-                                    </video>
-                                    <div>
-                                        Segmentation 
-                                    </div>
-                                </th>
-                                <th>
-                                    <video controls autoplay muted loop width="300">
-                                        <source src="assets/cond_diff_subject/girl_bicycle/output.mp4">
-                                    </video>
-                                    <div>
-                                        Output 
-                                    </div>
-                                </th>
-                            </tr>
-                          </table>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                    <tr valign="top">
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/cond_diff_subject/girl_bicycle/original.mp4">
+                                            </video>
+                                            <div>
+                                                Original video <br> (not used as model input)
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <img src="assets/cond_diff_subject/girl_bicycle/cond.png" height="300">
+                                            <div>
+                                                Condition 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/cond_diff_subject/girl_bicycle/seg.mp4">
+                                            </video>
+                                            <div>
+                                                Segmentation 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/cond_diff_subject/girl_bicycle/output.mp4">
+                                            </video>
+                                            <div>
+                                                Output 
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                 </details>
+            </details>
+            <details>
+                <summary>Comparison with baselines with original videos</summary>
+                    <div id="table-wrapper">
+                        <div id="table-scroll">
+                            <h3>Here we show the video version of Fig. 4 in the main manuscript. Baselines accepting video input see the original videos.</h3>
+                                <table style="width: 100%;margin-left:auto;margin-right:auto;">
+                                    <tr valign="top">
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/baseline_comparison/ours/original.mp4">
+                                            </video>
+                                            <div>
+                                                Original video
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/baseline_comparison/ours/seg.mp4">
+                                            </video>
+                                            <div>
+                                                Segmentation 
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <img src="assets/baseline_comparison/ours/cond.png" height="300">
+                                            <div>
+                                                Condition 
+                                            </div>
+                                        </th>
+                                        <br>
+                                        <th>
+                                            <video controls autoplay muted loop width="300">
+                                                <source src="assets/cond_diff_subject/girl_bicycle/output.mp4">
+                                            </video>
+                                            <div>
+                                                Output 
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                        </div>
+                    </div>
             </details>
         </div>
     </div>
