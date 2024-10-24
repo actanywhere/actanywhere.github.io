@@ -42,14 +42,17 @@
                 <a href="https://geometry.stanford.edu/member/guibas/">Leonidas J. Guibas</a><sup>1</sup>
             </span>
             <span class="author">
-                <a href="https://jimeiyang.github.io/">Jimei Yang</a><sup>2</sup>
+                <a href="https://jimeiyang.github.io/">Jimei Yang</a><sup>3</sup>
             </span>
         </p>
         <p class="affiliations">
-            <sup>1</sup>Stanford University</span>
-            <sup>2</sup>Adobe Research</span>
+            <span class="affiliation"><sup>1</sup>Stanford University</span>
+            <span class="affiliation"><sup>2</sup>Adobe Research</span>
+            <span class="affiliation"><sup>3</sup>Runway</span>
         </p>
-
+        <p class="venue">
+            <span class="author">NeurIPS 2024</span>
+        </p>
         <p class="menu">
             <a style="color: steelblue" href="https://arxiv.org/abs/2401.10822">[arXiv]</a> 
         </p>
@@ -95,13 +98,13 @@
 
         <p class="section"><b>Abstract</b></p>
         <p style="max-width:700px; margin:auto; text-align: justify; margin-bottom: 1em">
-            Generating video background that tailors to foreground subject motion is an important problem for the movie industry and visual effects community. 
-            This task involves synthesizing background that aligns with the motion and appearance of the foreground subject, while also complies with the artist's creative intention. 
-            We introduce <b>ActAnywhere</b>, a generative model that automates this process which traditionally requires tedious manual efforts. 
-            Our model leverages the power of large-scale video diffusion models, and is specifically tailored for this task. 
-            ActAnywhere a sequence of foreground subject segmentation as input and an image that describes the desired scene as condition, to produce a coherent video with realistic foreground-background interactions while adhering to the condition frame. 
-            We train our model on a large-scale dataset of human-scene interaction videos. Extensive evaluations demonstrate the superior performance of our model, significantly outperforming baselines. 
-            Moreover, we show that ActAnywhere name generalizes to diverse out-of-distribution samples, including non-human subjects.
+            We study a novel problem to automatically generate video background that tailors to foreground subject motion. 
+            It is an important problem for the movie industry and visual effects community, which traditionally requires tedious manual efforts to solve. 
+            To this end, we propose <b>ActAnywhere</b>, a video diffusion model that takes as input a sequence of foreground subject segmentation together with an image of a novel background, and generates a video of the subject interacting in this background. 
+            We train our model on a large-scale dataset of 2.4M videos of human-scene interactions. 
+            Through extensive evaluation, we show that our model produces videos with realistic foreground-background interaction while strictly following the guidance of the condition image. 
+            Our model generalizes to diverse scenarios including non-human subjects, gaming and animation clips, as well as videos with multiple moving subjects. 
+            Both quantitative and qualitative comparisons demonstrate that our model significantly outperforms existing methods, which fail to accomplish the studied task.
         </p>
 
         <p class="section"><b>Method</b></p>
@@ -109,7 +112,6 @@
             <img src="./assets/method.jpeg" alt="" width="900px" style="max-width: 100%; height: auto;" />
         </div>
         <p style="max-width:900px; margin:auto; text-align: justify; margin-bottom: 1em">
-            Our 3D U-Net takes a sequence of foreground subject segmentation along with masks as input, and is conditioned on a frame describing the background.
             During training, we take a randomly sampled frame from the training video to condition the denoising process. 
             At test time, the condition can be either a composited frame of the subject with a novel background, or a background-only image. 
         </p>
